@@ -1,5 +1,6 @@
 
-
+import numpy as np
+import matplotlib as mplt
 import streamlit as st 
 from model_functions import salary_at_year, cash_saved_during_year, wealth_that_year, years_to_retirement
 from dataclasses import dataclass
@@ -53,18 +54,11 @@ for i in range(year):
 
 
 for i in range(year):
-    """
-    Loop takes the first wealth and iterates it to the prior wealth
-    for the length of years that are being tested.
-
-    !! Before you rerun it, restart all variables in the model, 
-    otherwise the if you run the loop it'll keep adding onto the 
-    previously calculated wealth that's in memory.
-    """
     year = i + 1
     wealth = wealth_that_year(model_data,year, prior_wealth) 
     print(f"Your wealth in year {year}: ${wealth:,.2f}")
     prior_wealth = wealth
 
 
-years_to_retirement(data)
+retirement_year, money = years_to_retirement(data)
+st.write(f"You will retire in {retirement_year} years with: {money}")

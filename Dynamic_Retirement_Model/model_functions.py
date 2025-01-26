@@ -51,6 +51,9 @@ def years_to_retirement(data):
     """
     Function runs a while loop untill the year
     your desired cash target is met. 
+
+    Function returns two things, 
+    the retirement year and the retirement amount($)
     """
     prior_wealth = 0 
     wealth = 0 
@@ -68,6 +71,6 @@ def years_to_retirement(data):
 
     print(f"\nRetirement:")
     print(f"It will take {retirement_year} years to retire.")
-    return retirement_year
+    return retirement_year, wealth
 
 
