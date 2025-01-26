@@ -1,6 +1,6 @@
 
 import numpy as np
-import matplotlib as mplt
+
 import streamlit as st 
 from model_functions import salary_at_year, cash_saved_during_year, wealth_that_year, years_to_retirement
 from dataclasses import dataclass
