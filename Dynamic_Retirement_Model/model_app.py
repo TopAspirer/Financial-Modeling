@@ -11,14 +11,14 @@ st.write("by Lloyd Nsambu")
 
 @dataclass
 class ModelInputs:
-    starting_salary: float = 60000
-    promos_every_n_years: float = 5
-    promo_raise: float = 0.15
+    starting_salary: float = 80000
+    promos_every_n_years: float = 1
+    promo_raise: float = 0.20
     cost_living_raise: float = 0.02
-    savings_rate: float = 0.25
+    savings_rate: float = 0.30
     interest_rate: float = 0.05             
     #prior_money: float = 0 
-    desired_cash: float = 1500000
+    desired_cash: float = 1000000
     
 
 model_data = ModelInputs()
