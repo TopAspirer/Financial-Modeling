@@ -11,14 +11,14 @@ st.write("by Lloyd Nsambu")
 
 @dataclass
 class ModelInputs:
-    starting_salary: float = 80000
-    promos_every_n_years: float = 1
-    promo_raise: float = 0.20
-    cost_living_raise: float = 0.02
-    savings_rate: float = 0.30
-    interest_rate: float = 0.05             
+    starting_salary: float = 0
+    promos_every_n_years: float = 0
+    promo_raise: float = 0
+    cost_living_raise: float = 0
+    savings_rate: float = 0
+    interest_rate: float = 0            
     #prior_money: float = 0 
-    desired_cash: float = 1000000
+    desired_cash: float = 0
     
 
 model_data = ModelInputs()
@@ -26,39 +26,48 @@ data = model_data
 
 
 
-## Testing the salary over a course of 40 years. 
-## Returns a text indicating when you'll recieve a promotion.
+## -----------------------------------------------------
+# Draw the actual page 
 
-promo_every_n_year = data.promos_every_n_years
-year = 40
+"""
+# Dynamic Retirement Model 
 
-for i in range(year):
-    year = i + 1
-    salary = salary_at_year(data,year)
-    if year in range(promo_every_n_year,120, promo_every_n_year):
-        print(f"You get a raise in year {year}: ${salary:,.2f}")
+This is a dynamic retirement model that takes your inputs and and determines
+the amount of years it'll take you to reach your desired financial amount for retirement.
+There are more tools yet to be added. 
+"""
 
-    elif year not in range(promo_every_n_year,120, promo_every_n_year):
-        print(f"Salary in year {year}: ${salary:,.2f}")
-
-
-
-## Testing the cash saved over a period of time
-prior_wealth = 0 
-
-for i in range(year):
-    year = i + 1
-    cash_saved = cash_saved_during_year(data,year)
-    print(f"Money saved in year {year}: ${cash_saved:,.2f}")
+# added some spacing
+""
+""
+""
 
 
+starting_salary = st.chat_input(
+    "What is your starting/current salary",
+    input("70,000....?")
+)
+data.starting_salary = float(starting_salary)
 
-for i in range(year):
-    year = i + 1
-    wealth = wealth_that_year(model_data,year, prior_wealth) 
-    print(f"Your wealth in year {year}: ${wealth:,.2f}")
-    prior_wealth = wealth
+if starting_salary != float or int : 
+    st.warning("Please enter a numerical value")
 
+""
+""
+""
 
-retirement_year, money = years_to_retirement(data)
-st.write(f"You will retire in {retirement_year} years with: {money}")
+promos_every_n_years = st.chat_input(
+    "Enter every number of years you get a promotion",
+    input("5...?")
+)
+data.promos_every_n_years = promos_every_n_years
+
+""
+""
+""
+
+promo_raise = st.chat_input(
+    "What's raise you get for every promotion?",
+    input("Enter as a percentage")
+)
+data.promo_raise = promo_raise /100
