@@ -21,7 +21,7 @@ model_data = ModelInputs()
 data = model_data
 
 
-st.title("Dynamic Retirement Model")
+
 ## -----------------------------------------------------
 # Draw the actual page 
 
@@ -39,11 +39,9 @@ There are more tools yet to be added.
 ""
 ""
 
+"What is your starting/current salary"
+starting_salary = st.text_input("70,000....?")
 
-starting_salary = st.text_input(
-    "What is your starting/current salary",
-    salary_salary = input("70,000....?")
-)
 data.starting_salary = float(starting_salary)
 
 if starting_salary != float or int : 
@@ -53,18 +51,14 @@ if starting_salary != float or int :
 ""
 ""
 
-promos_every_n_years = st.text_input(
-    "Enter every number of years you get a promotion",
-    promos_every_n_years = input("5...?")
-)
+"Enter every number of years you get a promotion"
+promos_every_n_years = st.text_input("5...?")
 data.promos_every_n_years = promos_every_n_years
 
 ""
 ""
 ""
 
-promo_raise = st.text_input(
-    "What's raise you get for every promotion?",
-    promo_raise = input("Enter as a percentage")
-)
+"What's raise you get for every promotion?"
+promo_raise = st.text_input("Enter as a percentage")
 data.promo_raise = promo_raise /100
