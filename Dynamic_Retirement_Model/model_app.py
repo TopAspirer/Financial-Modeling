@@ -1,6 +1,5 @@
 
 import numpy as np
-
 import streamlit as st 
 from model_functions import salary_at_year, cash_saved_during_year, wealth_that_year, years_to_retirement
 from dataclasses import dataclass
@@ -22,9 +21,10 @@ model_data = ModelInputs()
 data = model_data
 
 
-
+st.title("Dynamic Retirement Model")
 ## -----------------------------------------------------
 # Draw the actual page 
+
 
 """
 # Dynamic Retirement Model 
@@ -40,7 +40,7 @@ There are more tools yet to be added.
 ""
 
 
-starting_salary = st.chat_input(
+starting_salary = st.text_input(
     "What is your starting/current salary",
     salary_salary = input("70,000....?")
 )
@@ -53,7 +53,7 @@ if starting_salary != float or int :
 ""
 ""
 
-promos_every_n_years = st.chat_input(
+promos_every_n_years = st.text_input(
     "Enter every number of years you get a promotion",
     promos_every_n_years = input("5...?")
 )
@@ -63,7 +63,7 @@ data.promos_every_n_years = promos_every_n_years
 ""
 ""
 
-promo_raise = st.chat_input(
+promo_raise = st.text_input(
     "What's raise you get for every promotion?",
     promo_raise = input("Enter as a percentage")
 )
