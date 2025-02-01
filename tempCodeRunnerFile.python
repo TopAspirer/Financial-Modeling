@@ -1,0 +1,4 @@
+
+
+ans = round(56/27,2)
+print(ans)

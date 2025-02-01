@@ -1,0 +1,46 @@
+
+
+import random
+## Annual inflation data of the past 40 years.
+
+""" The idea is to randomly generate a random annual inflation rate for 
+time horizons greater than 10 years. 
+
+Example: if the user inputs 10 years, the first 5 years the 5 year projected
+inflation rates would be used and the remaining of projection will use the 
+previous inflation rates at random selection.
+"""
+
+projected_inflation_rates_5_yrs = [3.9, 
+
+]
+
+previous_inflation_rates_34_yrs = [2.4, 3.9, 6.8, 3.4, 0.7, 1.9, 2.3, 1.6, 1.4,
+                           1.1, 1.9, 0.9, 1.5, 2.9, 1.8, 0.3, 2.4, 2.1,
+                           2.0, 2.2, 1.9, 2.8, 2.3, 2.5, 2.7, 1.7, 1.0,
+                           1.6, 1.6, 2.1, 0.2, 1.9, 1.5, 5.6, 4.8                           
+]
+
+years = 50 
+salary = 120000
+
+## This converts the previous and projected inflation rates into into decimals. 
+for proj_rate in projected_inflation_rates_5_yrs:
+    decimal_proj_rate = proj_rate / 100
+    projected_inflation_rates_5_yrs.append(decimal_proj_rate)
+
+for prev_rate in previous_inflation_rates_34_yrs:
+    decimal_prev_rate = prev_rate / 100
+    previous_inflation_rates_34_yrs.append(decimal_prev_rate)
+
+
+print("Hello")
+print(f"The previous 34 year inflation rates are : {previous_inflation_rates_34_yrs}")
+print(f" The projected 5 year inflation rates are: {projected_inflation_rates_5_yrs}")
+
+"""
+if years <= 5: 
+    for rate in range(random(projected_inflation_rates_5_yrs)):
+        discounted_salary = salary - (salary * rate)
+        salary = discounted_salary - (discounted_salary * rate)
+"""

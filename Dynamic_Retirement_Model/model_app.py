@@ -40,25 +40,56 @@ There are more tools yet to be added.
 ""
 
 "What is your starting/current salary"
-starting_salary = st.text_input("70,000....?")
-
-data.starting_salary = float(starting_salary)
-
+starting_salary = float(st.text_input("70,000....?"))
 if starting_salary != float or int : 
     st.warning("Please enter a numerical value")
+else:
+    data.starting_salary = starting_salary
+
+
 
 ""
 ""
 ""
 
 "Enter every number of years you get a promotion"
-promos_every_n_years = st.text_input("5...?")
-data.promos_every_n_years = promos_every_n_years
+promos_every_n_years = float(st.text_input("$...?"))
+if promos_every_n_years != float or int : 
+    st.warning("Please enter a numerical value")
+else:
+    data.promos_every_n_years = promos_every_n_years
 
 ""
 ""
 ""
 
-"What's raise you get for every promotion?"
-promo_raise = st.text_input("Enter as a percentage")
-data.promo_raise = promo_raise /100
+"What's the raise you recieve for every promotion?"
+promo_raise = float(st.text_input("Enter as a percentage"))
+if starting_salary != float or int : 
+    st.warning("Please enter a valid numerical value")
+else:
+    data.promo_raise = promo_raise /100
+
+""
+""
+""
+
+"What's your current interest rate?"
+current_interest_rate = float(st.text_input("Enter as a percentage"))
+if starting_salary != float or int : 
+    st.warning("Please enter a valid numerical value")
+else:
+    data.interest_rate = current_interest_rate /100
+
+""
+""
+""
+
+"Lastly, enter your desired cash to retire with"
+promo_raise = float(st.text_input("$...."))
+if starting_salary != float or int : 
+    st.warning("Please enter a valid numerical value")
+else:
+    data.promo_raise = promo_raise /100
+
+

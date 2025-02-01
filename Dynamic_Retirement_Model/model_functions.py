@@ -1,5 +1,28 @@
 
 
+def perc_to_deci(dict,list): 
+    """
+    This function converts the percentage rates
+     in a dictionary into decimals and appends all the values to
+    a list.
+
+    * Used primarily in the inflation module.
+    
+    Parameters
+    - dictionary with key
+    ex. infl['jan'] ----> [1.0, 2.2...n.n]
+    - a list that will hold the converted values
+        
+    Returns 
+    -  A list of all the numbers in decimal from
+        rounded to the 2 decimal
+    """
+    for a in dict:
+        deci_num = round(a / 100,5)
+        list.append(deci_num)
+
+
+
 
 def salary_at_year (data, year):
     """
