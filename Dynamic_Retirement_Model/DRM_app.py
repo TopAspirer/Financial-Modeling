@@ -7,14 +7,14 @@ from dataclasses import dataclass
 
 @dataclass
 class ModelInputs:
-    starting_salary: float = 0
-    promos_every_n_years: float = 0
-    promo_raise: float = 0
-    cost_living_raise: float = 0
-    savings_rate: float = 0
-    interest_rate: float = 0            
+    starting_salary: float = 100000
+    promos_every_n_years: float = 3
+    promo_raise: float = 2
+    cost_living_raise: float = 0.02
+    savings_rate: float = 0.15
+    interest_rate: float = 0.0315           
     #prior_money: float = 0 
-    desired_cash: float = 0
+    desired_cash: float = 2500000
     
 
 model_data = ModelInputs()
@@ -87,7 +87,7 @@ else:
 
 "Lastly, enter your desired cash to retire with"
 promo_raise = float(st.text_input("$...."))
-if starting_salary != float or int : 
+if promo_raise != float or int : 
     st.warning("Please enter a valid numerical value")
 else:
     data.promo_raise = promo_raise /100

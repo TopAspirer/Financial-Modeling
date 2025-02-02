@@ -1,5 +1,5 @@
 
-
+import salary_functions as sf
 def perc_to_deci(dict,list): 
     """
     This function converts the percentage rates
@@ -14,27 +14,14 @@ def perc_to_deci(dict,list):
     - a list that will hold the converted values
         
     Returns 
-    -  A list of all the numbers in decimal from
-        rounded to the 2 decimal
+    -  The list that you passed will have all the
+        numbers in it. 
     """
     for a in dict:
         deci_num = round(a / 100,5)
         list.append(deci_num)
 
 
-
-
-def salary_at_year (data, year):
-    """
-    Calculates the salary at a specific year.
-    Parameters are: 
-    - data (cost of living raise, promotion raise, and starting salary)
-    - year (The specific year you would like to determine your salary amount)
-    """
-    num_promos = int(year / data.promos_every_n_years)
-    num_promos
-    salary_t = data.starting_salary * (1 + data.cost_living_raise)**year * (1 + data.promo_raise) ** num_promos
-    return salary_t
 
 
 def cash_saved_during_year (data, year):
@@ -49,7 +36,7 @@ def cash_saved_during_year (data, year):
     - model data (salary, savings rate)
     - year
     """
-    salary = salary_at_year(data,year)
+    salary = sf.salary_at_year(data,year)
     cash_saved = salary * data.savings_rate
     return cash_saved
 
