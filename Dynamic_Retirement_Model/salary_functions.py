@@ -15,3 +15,7 @@ def salary_at_year (data, year):
     num_promos
     salary_t = data.starting_salary * (1 + data.cost_living_raise)**year * (1 + data.promo_raise) ** num_promos
     return salary_t
+
+
+## Tax function to be added. 
+
