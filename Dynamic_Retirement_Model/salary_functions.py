@@ -51,7 +51,18 @@ class OntarioTaxRates:
     OT2: float = 105775
 
 
+# testing progressive algo
+salary = 105030
 
+if salary <= 105775:
+    b1 = ON_rate_1 * 52886
+    b2 = (salary - 52886 ) * ON_rate_2
+    
+    tax = b1 + b2 
+    print(f"{tax:,.2f}")
+
+else:
+    print(f"Can't calculate salary")
 
 
 
