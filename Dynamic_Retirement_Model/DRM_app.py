@@ -1,13 +1,25 @@
+'''
+-----------------------------------------------------
+The main application module
+Run this file run the full model.
+-----------------------------------------------------
+Author: Lloyd Nsambu
+ID: HIM
+Email: tendolloyd@gmail.com
+Started:  Jan 24, 2025
+Completed: March 13,2025
+'''
+
+
+# External imports
 import streamlit as st 
 import datetime
 import pandas as pnds
 from dataclasses import dataclass
 
-
-
-
-from salary_submodel import salary_at_year
-from wealth_submodel import wealth_that_year,cash_saved_during_year, cash_accumulator, wealths_accumulator
+# Internal imports
+from salary_submodel import salary_at_year, salaries_grwth_rate
+from wealth_submodel import wealth_that_year, cash_saved_during_year, cash_accumulator, wealths_accumulator, years_to_retirement
 
 
 @dataclass
@@ -19,7 +31,7 @@ class ModelInputs:
     savings_rate: float = 0
     interest_rate: float = 0          
     prior_wealth: float = 0 
-    desired_cash: float = 0
+    desired_cash: float = 0.0
     working_years: int = 8
     current_year: int = datetime.datetime.now().year
 
@@ -30,16 +42,12 @@ data = model_data
 
 
 
-## -----------------------------------------------------
-# Draw the actual page 
-st.title("Dynamic Retirement Model")
+#with st.columns(3, gap='large', vertical_alignment='center')[1]:
 
-"""
+st.markdown("<h1 style='text-align: center; color: white;'>Dynamic Retirement Tool</h1>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: white;'>Model Your Financial Future!</h4>", unsafe_allow_html=True)
 
-This is a dynamic retirement model that takes your inputs and and determines
-the amount of years it'll take you to reach your desired financial amount for retirement.
-There are more tools yet to be added. 
-"""
+
 
 # added some spacing
 ""
@@ -55,7 +63,7 @@ data.interest_rate = col1.number_input("Interest Rate (%)", min_value=0.0, value
 data.promos_every_n_years = col2.number_input("Promotion every $x$ year", min_value=0, value=2)
 data.promo_raise = col3.number_input("Promotion Raise (%)")
 
-data.desired_cash = col2.number_input("Desired Financial Goal", min_value=0.0,value=0.0 )
+data.desired_cash = col2.number_input("Desired Retirment Goal($)", min_value=0.0,value=0.0 )
 data.cost_living_raise = col3.number_input("Cost of Living Raise (%)", min_value=0.0, value=0.0)
 
 data.working_years = st.slider("Working Years", min_value=1, max_value=99)   
@@ -72,11 +80,10 @@ except ZeroDivisionError:
     
 
 
-      
-## Displaying the Inputs to the user.
+## Displaying the inputs to the user.   
 colA, colB, colC = st.columns(3)
 
-colA.metric(label="Starting Salary", value=f"${data.starting_salary:.1f}")
+colA.metric(label="Starting Salary", value=f"${data.starting_salary:,.2f}")
 colB.metric(label="Working Years",   value=f"{data.working_years:d}")
 colC.metric(label="Promotion Raise", value=f"{(data.promo_raise*100):.1f}%")
 
@@ -94,16 +101,12 @@ for a in range(working_years):
     years_list.append(current_year + a )
     
 
-
-    
-
 # Loop makes a list of the salary earned at each year the user inputed
 for i in range(working_years):
     year = i + 1      
     salary =  round(salary_at_year(data, year), 2)
     salaries.append(salary)
     
-
 
 # This dictionary holds all the salary data for each year.
 salary_data = {
@@ -119,36 +122,38 @@ st.header("Yearly Salary Growth", divider='grey')
 salary_growth_df = df_salary[['Year','Salary']].groupby('Year').min()
 salary_chart = st.line_chart(salary_growth_df, x_label= 'Year', y_label='Salary')
 
-st.write("## Salary Summary:")
-with st.expander("📜"):
+salary_grwth_rate = salaries_grwth_rate(salary_data)
+st.write("## Salary Report")
+with st.expander("View Report📜"):
     st.write(f"""
-    Total salary compensation: ${sum(salary_data['Salary']):,.2f}\n
-    Total Working Years: {salary_data['Year'][-1] - data.current_year}\n
-    Salary at {salary_data['Year'][-1]}: $ {salary_data['Salary'][-1]:,.2f}\n
-    
-    
+        ## Salary Report
+            Total salary compensation: ${sum(salary_data['Salary']):,.2f}
+            Total Working Years: {salary_data['Year'][-1] - data.current_year}
+            Salary at {salary_data['Year'][-1]}: $ {salary_data['Salary'][-1]:,.2f}
+            Nominal salary growth: {salary_grwth_rate}%
     """)
+
     
 
 #<----------------------------------------------------------->
 
 ## This section will hold the wealth and cash saved section
 
-st.write(f"""----------------------------------------""", color='Ffff00')
+st.write(f"""----------------------------------------""")
 
 st.write("### Enter Wealth Data")
 
 
 col1a, col2a = st.columns(2)
-data.desired_cash = col1a.number_input("Desired Retirement Cash ($)", min_value=0, value=0)
+data.desired_cash = col1a.number_input("Desired Retirement Goal ($)", min_value= 0.0, value=data.desired_cash)
 data.prior_wealth = col2a.number_input("Current Asset Value ($)", min_value=0, value=0)
 data.savings_rate = st.slider("#### Savings Rate(%)", min_value=0, max_value=99)
 data.savings_rate /= 100
 
 colA1, colA2, colA3 = st.columns(3)
 colA1.metric(label="Saving Rate", value=f"{(data.savings_rate*100):.1f}%")
-colA2.metric(label="Current Asset Value", value=f"${data.prior_wealth:.1f}")
-colA3.metric(label="Desired Retirment Goal", value=f"${data.desired_cash:.1f}")
+colA2.metric(label="Current Asset Value", value=f"${data.prior_wealth:,.1f}")
+colA3.metric(label="Desired Retirment Goal", value=f"${data.desired_cash:,.1f}")
 
 
 # Calling the cash savings and wealth calculating functions with loops in them.
@@ -178,33 +183,44 @@ wealth_growth_df = df_savings_n_wealths[['Year','Savings', 'Wealth']].groupby('Y
 
 st.line_chart(wealth_growth_df, x_label= 'Year', y_label='Value($)' )
 
+# Determining their retirement year and money upon retirment
+yrs_to_retire, wealth_at_retirement = years_to_retirement(data,wealth_that_year)
+
+
 #<-------------------------------------->
 
 # This section will summarize the journey to retirement.
 
-
-
 st.write(f"""----------------------------------------""")
-st.write(f"Wealth and Savings Summary")
-with st.expander("📈"):
+st.write(f"Wealth and Savings Report")
+
+with st.expander("View Report📈"):
     st.write(f"""
-        ### Wealth Summary
-            Projected Years: {len(savings_n_wealths['Years past'])}
-            Preferred Savings Rate (of salary): {data.savings_rate*100}%
-            Total Savings: ${sum(savings_n_wealths['Savings']):,.2f}
-            Accumulated Wealth: ${sum(savings_n_wealths['Wealth']):,.2f}
-
-            Financial Target Reached?
-            ---> Feature Available Soon <----
-            
-
+        #### Wealth
+            Forecast Years: {len(savings_n_wealths['Years past'])}
+            Savings Rate (of salary): {(data.savings_rate*100):.2f}%
+            Interest Rate: {(data.interest_rate*100):,.2f}%
+            Total Savings: ${savings_n_wealths['Savings'][-1]:,.2f}
+            Starting Wealth: ${data.prior_wealth:,.2f}
+            Ending Wealth: ${savings_n_wealths['Wealth'][-1]:,.2f}
+           
         """
+    )
+    st.write(f"""
+        #### Retirement
+            Expected Working Years: {data.working_years:d}
+            Desired Retirment Cash: ${data.desired_cash:,.2f}
+            Forecasted years to retirement financial goal: {yrs_to_retire:d}
 
-)
-    
-    
+            ** Amounts in the model are nominal.
+        """
+    )
+""
+""
 
-
+st.write(f"#### Would you like use an even better tool?")
+st.write(f"👇Help us fill out this short questionaire👇")
+st.link_button("Feedback", "https://forms.office.com/r/3F5FttxEmM")
 
 
 

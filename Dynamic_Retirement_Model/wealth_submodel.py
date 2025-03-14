@@ -1,5 +1,22 @@
 
-## Module Holds all components of the wealth of the model.
+'''
+-----------------------------------------------------
+This is module houses the functions for calculating
+the cash savings and wealth overtime. Additionally, 
+it has functions simplify the creation of wealths and cash
+over time lists that are imported into different parts of 
+the application to keep overall clean code.
+
+*** Tampering with on variable can lead to a small calculation
+error with big impact on the model. I recommend documenting
+a change so its easy debugging a calculation error that may occur.
+-----------------------------------------------------
+Author: Lloyd Nsambu
+ID: HIM
+Email: tendolloyd@gmail.com
+Started:  Jan 24, 2025
+Completed: March 13,2025
+'''
 
 from salary_submodel import salary_at_year
 
@@ -88,3 +105,27 @@ def wealths_accumulator(data, working_years,wealth_that_year):
     return wealths_accumulated
 
 
+def years_to_retirement(data, wealth_that_year):
+    """
+    Function runs a while loop untill the year
+    your desired cash target is met. 
+    Parameters:
+    - Model data        (dataclass)
+    - wealth_that_year  (function)
+    Returns: 
+    - Retirement Year      (int)
+    - Money on retirement  (float)
+    """
+    year = 0
+    wealth = 0
+    prior_wealth = data.prior_wealth
+    yrs_to_retirement = 0
+    while wealth < data.desired_cash:
+        year = year + 1
+        wealth = wealth_that_year(data,year, prior_wealth) 
+        prior_wealth = wealth
+
+        if wealth >= data.desired_cash:
+            yrs_to_retirement = year
+            break
+    return yrs_to_retirement, wealth

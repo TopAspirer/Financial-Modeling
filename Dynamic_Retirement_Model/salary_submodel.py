@@ -1,8 +1,16 @@
 
-## Modul Holds all components of the salary submodel of the model.
-#  
-
-
+'''
+-----------------------------------------------------
+This is module that acts as a submodel for the 
+salary calculations component. 
+-----------------------------------------------------
+Author: Top Aspirer
+ID: HIM
+Email: tendolloyd@gmail.com
+Started:  Jan 24, 2025
+Completed: March 13,2025
+'''
+from math import pow
 
 def salary_at_year (data, year):
     """
@@ -18,10 +26,27 @@ def salary_at_year (data, year):
     salary_t = data.starting_salary * (1 + data.cost_living_raise)**year * (1 + data.promo_raise) ** num_promos
     return salary_t
 
+def salaries_grwth_rate(salary_data):
+    """
+    Function handles the growth rate
+    of their salary over the specified period
+    Parameters:
+    - Salaries  (list)
+    Returns:
+    - grwth rate (float, percentage)
+    """
+    beg_salary = salary_data['Salary'][0]
+    end_salary = salary_data['Salary'][-1]
+    years = len(salary_data['Salary'])
+    try:
+        grwth_rate =  pow(end_salary/beg_salary, (1/years))-1
+        grwth_rate = round(grwth_rate*100,2)
+    except ZeroDivisionError:
+        grwth_rate = 0
+    return grwth_rate
 
 
-
-
+# Function is made mainly for testing in the salary testing module
 def salary_presenter(data,num_years):
     """
     This function was created to be used in other modules.
