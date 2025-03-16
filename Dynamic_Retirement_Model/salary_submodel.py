@@ -23,7 +23,7 @@ def salary_at_year (data, year):
         num_promos = int(year / data.promos_every_n_years)
     elif data.promos_every_n_years == 0 or data.promos_every_n_years < 0: 
         num_promos = 0 
-    salary_t = data.starting_salary * (1 + data.cost_living_raise)**year * (1 + data.promo_raise) ** num_promos
+    salary_t = data.starting_salary * (1 + data.annual_salary_raise)**year * (1 + data.promo_raise) ** num_promos
     return salary_t
 
 def salaries_grwth_rate(salary_data):

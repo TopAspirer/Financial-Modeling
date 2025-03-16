@@ -24,7 +24,7 @@ class ModelInputs:
     starting_salary: float = 100000
     promos_every_n_years: float = 2
     promo_raise: float = 0.08
-    cost_living_raise: float = 0.0
+    annual_salary_raise: float = 0.0
     savings_rate: float = 0
     interest_rate: float = 0          
     #prior_money: float = 0 
@@ -47,8 +47,8 @@ salary_data = {
 df_salary = pnds.DataFrame(salary_data)                             
 print(df_salary)
 
-#total_compensation = sum(salaries)
-#print(f"Total life time compensation: ${total_compensation:,.2f}")
+total_compensation = sum(salaries)
+print(f"Total life time compensation: ${total_compensation:,.2f}")
 
 
 ## - Created a salary growth rate calculator.

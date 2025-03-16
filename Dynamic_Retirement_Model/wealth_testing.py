@@ -27,7 +27,7 @@ class ModelInputs:
     starting_salary: float = 50494
     promos_every_n_years: float = 3
     promo_raise: float = 0.02
-    cost_living_raise: float = 0.00
+    annual_salary_raise: float = 0.00
     savings_rate: float = 0.20
     interest_rate: float = 0.0275           
     prior_wealth: float = 0 

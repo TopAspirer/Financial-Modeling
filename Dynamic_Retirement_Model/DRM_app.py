@@ -27,7 +27,7 @@ class ModelInputs:
     starting_salary: float = 0
     promos_every_n_years: float = 0
     promo_raise: float = 0
-    cost_living_raise: float = 0
+    annual_salary_raise: float = 0
     savings_rate: float = 0
     interest_rate: float = 0          
     prior_wealth: float = 0 
@@ -44,8 +44,8 @@ data = model_data
 
 #with st.columns(3, gap='large', vertical_alignment='center')[1]:
 
-st.markdown("<h1 style='text-align: center; color: white;'>Dynamic Retirement Tool</h1>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; color: white;'>Model Your Financial Future!</h4>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Dynamic Retirement Tool</h1>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center;'>Model Your Financial Future!</h4>", unsafe_allow_html=True)
 
 
 
@@ -57,20 +57,20 @@ st.write("### Enter Salary Data")
 
 col1, col2, col3,col4 = st.columns(4)
 
-data.starting_salary = col1.number_input("Starting Salary", min_value=0.0, value=0.0)
+data.starting_salary = col1.number_input("Annual Salary", min_value=0.0, value=0.0)
 data.interest_rate = col1.number_input("Interest Rate (%)", min_value=0.0, value=0.0)
 
 data.promos_every_n_years = col2.number_input("Promotion every $x$ year", min_value=0, value=2)
 data.promo_raise = col3.number_input("Promotion Raise (%)")
 
-data.desired_cash = col2.number_input("Desired Retirment Goal($)", min_value=0.0,value=0.0 )
-data.cost_living_raise = col3.number_input("Cost of Living Raise (%)", min_value=0.0, value=0.0)
+data.desired_cash = col2.number_input("Desired Retirement Goal($)", min_value=0.0,value=0.0 )
+data.annual_salary_raise = col3.number_input("Annual Salary Raise (%)", min_value=0.0, value=0.0)
 
-data.working_years = st.slider("Working Years", min_value=1, max_value=99)   
+data.working_years = st.slider("Expected Working Years", min_value=1, max_value=99)   
 
 # Code to prevent division by zero.
 try:
-    data.cost_living_raise /= 100
+    data.annual_salary_raise /= 100
     data.promo_raise /= 100
     data.savings_rate /=100
     data.interest_rate /= 100
@@ -213,6 +213,8 @@ with st.expander("View Report📈"):
             Forecasted years to retirement financial goal: {yrs_to_retire:d}
 
             ** Amounts in the model are nominal.
+            ** These are all estimates based on current inputs and
+            serve as nominal (below the real/ above the real value).
         """
     )
 ""
