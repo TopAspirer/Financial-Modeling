@@ -15,7 +15,7 @@ Completed: March 13,2025
 from dataclasses import dataclass
 import datetime
 
-from salary_submodel import salary_at_year, salary_presenter, salaries_grwth_rate
+from salary_submodel import salary_presenter
 import pandas as pnds
 
 

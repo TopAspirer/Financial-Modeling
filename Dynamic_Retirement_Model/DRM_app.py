@@ -57,16 +57,16 @@ st.write("### Enter Salary Data")
 
 col1, col2, col3,col4 = st.columns(4)
 
-data.starting_salary = col1.number_input("Annual Salary", min_value=0.0, value=0.0)
-data.interest_rate = col1.number_input("Interest Rate (%)", min_value=0.0, value=0.0)
+data.starting_salary = col1.number_input("Annual Salary", min_value=0.0, value=0.0, help="The income you expect in a year of work. ")
+data.interest_rate = col1.number_input("Interest Rate (%)", min_value=0.0, value=2.75, help="Default: Current Central bank rate (Canada). Can adjust for different scenarios")
 
-data.promos_every_n_years = col2.number_input("Promotion every $x$ year", min_value=0, value=2)
-data.promo_raise = col3.number_input("Promotion Raise (%)")
+data.promos_every_n_years = col2.number_input("Promotion every $x$ year", min_value=0, value=2, help="Ex. 'I expect a promotion every 2 year.' Adjust to your scenario")
+data.promo_raise = col3.number_input("Promotion Raise (%)", min_value=0, help="Ex.'When i get my promotion in 2 years, I expect a 5%\ raise.' Adjust to your scenario")
 
-data.desired_cash = col2.number_input("Desired Retirement Goal($)", min_value=0.0,value=0.0 )
-data.annual_salary_raise = col3.number_input("Annual Salary Raise (%)", min_value=0.0, value=0.0)
+data.desired_cash = col2.number_input("Desired Retirement Goal($)", min_value=0.0,value=0.0 , help="A lump sum amount expected to retire. Ex. $550,000 upon retirement")
+data.annual_salary_raise = col3.number_input("Annual Salary Raise (%)", min_value=0.0, value=0.0, help="You expect to recieve an annual raise. Ex. 3%\ salary increase every year")
 
-data.working_years = st.slider("Expected Working Years", min_value=1, max_value=99)   
+data.working_years = st.slider("Expected Working Years", min_value=1, max_value=99, help="The years you wish to project")   
 
 # Code to prevent division by zero.
 try:
@@ -146,14 +146,14 @@ st.write("### Enter Wealth Data")
 
 col1a, col2a = st.columns(2)
 data.desired_cash = col1a.number_input("Desired Retirement Goal ($)", min_value= 0.0, value=data.desired_cash)
-data.prior_wealth = col2a.number_input("Current Asset Value ($)", min_value=0, value=0)
-data.savings_rate = st.slider("#### Savings Rate(%)", min_value=0, max_value=99)
+data.prior_wealth = col2a.number_input("Current Savings ($)", min_value=0, value=0, help="The current savings you have.")
+data.savings_rate = st.slider("#### Savings Rate(%)", min_value=0, max_value=99, help="The percentage of you annual pay you save. Ex. 10%\ of your salary per year.")
 data.savings_rate /= 100
 
 colA1, colA2, colA3 = st.columns(3)
 colA1.metric(label="Saving Rate", value=f"{(data.savings_rate*100):.1f}%")
 colA2.metric(label="Current Asset Value", value=f"${data.prior_wealth:,.1f}")
-colA3.metric(label="Desired Retirment Goal", value=f"${data.desired_cash:,.1f}")
+colA3.metric(label="Desired Retirement Goal", value=f"${data.desired_cash:,.1f}")
 
 
 # Calling the cash savings and wealth calculating functions with loops in them.
