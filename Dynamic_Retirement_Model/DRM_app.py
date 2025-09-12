@@ -63,7 +63,7 @@ data.interest_rate = col1.number_input("Interest Rate (%)", min_value=0.0, value
 data.promos_every_n_years = col2.number_input("Promotion every $x$ year", min_value=0, value=2, help="Ex. 'I expect a promotion every 2 year.' Adjust to your scenario")
 data.promo_raise = col3.number_input("Promotion Raise (%)", min_value=0, help="Ex.'When i get my promotion in 2 years, I expect a 5%\ raise.' Adjust to your scenario")
 
-data.desired_cash = col2.number_input("Desired Retirement Goal($)", min_value=0.0,value=0.0 , help="A lump sum amount expected to retire. Ex. $550,000 upon retirement")
+data.desired_cash = col2.number_input("Retirement Goal($)", min_value=0.0,value=0.0 , help="A lump sum amount expected to retire. Ex. $550,000 upon retirement")
 data.annual_salary_raise = col3.number_input("Annual Salary Raise (%)", min_value=0.0, value=0.0, help="You expect to recieve an annual raise. Ex. 3%\ salary increase every year")
 
 data.working_years = st.slider("Expected Working Years", min_value=1, max_value=99, help="The years you wish to project")   
@@ -219,10 +219,10 @@ with st.expander("View Report📈"):
     )
 ""
 ""
-
-st.write(f"#### Would you like use an even better tool?")
-st.write(f"👇Help us fill out this short questionaire👇")
-st.link_button("Feedback", "https://forms.office.com/r/3F5FttxEmM")
+# I don't need this in the acc model... 
+#st.write(f"#### Would you like use an even better tool?")
+#st.write(f"👇Help us fill out this short questionaire👇")
+#st.link_button("Feedback", "https://forms.office.com/r/3F5FttxEmM")
 
 
 
